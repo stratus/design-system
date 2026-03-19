@@ -1,0 +1,108 @@
+{
+  "md": {
+    "sys": {
+      "color": {
+        "dark": {
+          "background": { "value": "#0a0a0f" },
+          "on-background": { "value": "#e2e8f0" },
+          "surface": { "value": "#12131a" },
+          "surface-container": { "value": "#1a1b26" },
+          "surface-container-high": { "value": "#222338" },
+          "on-surface": { "value": "#e2e8f0" },
+          "on-surface-variant": { "value": "#94a3b8" },
+          "outline": { "value": "#2a2b3a" },
+          "outline-variant": { "value": "#3a3b4a" },
+          "primary": { "value": "#3b82f6" },
+          "primary-container": { "value": "#1e3a5f" },
+          "on-primary": { "value": "#ffffff" },
+          "on-primary-container": { "value": "#93c5fd" },
+          "error": { "value": "#ef4444" },
+          "error-container": { "value": "#5f1e1e" },
+          "on-error": { "value": "#ffffff" },
+          "on-error-container": { "value": "#fca5a5" },
+          "success": { "value": "#22c55e" },
+          "success-container": { "value": "#1e5f2e" },
+          "on-success": { "value": "#ffffff" },
+          "on-success-container": { "value": "#86efac" }
+        },
+        "light": {
+          "background": { "value": "#f8fafc" },
+          "on-background": { "value": "#0f172a" },
+          "surface": { "value": "#ffffff" },
+          "surface-container": { "value": "#f1f5f9" },
+          "surface-container-high": { "value": "#e2e8f0" },
+          "on-surface": { "value": "#0f172a" },
+          "on-surface-variant": { "value": "#64748b" },
+          "outline": { "value": "#cbd5e1" },
+          "outline-variant": { "value": "#e2e8f0" },
+          "primary": { "value": "#2563eb" },
+          "primary-container": { "value": "#dbeafe" },
+          "on-primary": { "value": "#ffffff" },
+          "on-primary-container": { "value": "#1e40af" },
+          "error": { "value": "#dc2626" },
+          "error-container": { "value": "#fee2e2" },
+          "on-error": { "value": "#ffffff" },
+          "on-error-container": { "value": "#991b1b" },
+          "success": { "value": "#16a34a" },
+          "success-container": { "value": "#dcfce7" },
+          "on-success": { "value": "#ffffff" },
+          "on-success-container": { "value": "#166534" }
+        }
+      }
+    },
+    "ref": {
+      "palette": {
+        "primary": {
+          "10": { "value": "#0c1929" },
+          "20": { "value": "#1e3a5f" },
+          "30": { "value": "#1d4ed8" },
+          "40": { "value": "#2563eb" },
+          "50": { "value": "#3b82f6" },
+          "60": { "value": "#60a5fa" },
+          "70": { "value": "#93c5fd" },
+          "80": { "value": "#bfdbfe" },
+          "90": { "value": "#dbeafe" },
+          "95": { "value": "#eff6ff" }
+        },
+        "error": {
+          "10": { "value": "#2d0a0a" },
+          "20": { "value": "#5f1e1e" },
+          "30": { "value": "#991b1b" },
+          "40": { "value": "#dc2626" },
+          "50": { "value": "#ef4444" },
+          "60": { "value": "#f87171" },
+          "70": { "value": "#fca5a5" },
+          "80": { "value": "#fecaca" },
+          "90": { "value": "#fee2e2" },
+          "95": { "value": "#fff5f5" }
+        },
+        "success": {
+          "10": { "value": "#052e16" },
+          "20": { "value": "#1e5f2e" },
+          "30": { "value": "#166534" },
+          "40": { "value": "#16a34a" },
+          "50": { "value": "#22c55e" },
+          "60": { "value": "#4ade80" },
+          "70": { "value": "#86efac" },
+          "80": { "value": "#bbf7d0" },
+          "90": { "value": "#dcfce7" },
+          "95": { "value": "#f0fdf4" }
+        },
+        "neutral": {
+          "10": { "value": "#0a0a0f" },
+          "20": { "value": "#12131a" },
+          "30": { "value": "#1a1b26" },
+          "40": { "value": "#222338" },
+          "50": { "value": "#334155" },
+          "60": { "value": "#475569" },
+          "70": { "value": "#64748b" },
+          "80": { "value": "#94a3b8" },
+          "90": { "value": "#cbd5e1" },
+          "95": { "value": "#e2e8f0" },
+          "99": { "value": "#f8fafc" },
+          "100": { "value": "#ffffff" }
+        }
+      }
+    }
+  }
+}

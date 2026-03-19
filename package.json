@@ -1,0 +1,17 @@
+{
+  "name": "design-system",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./css": "./platforms/css/tokens.css",
+    "./tailwind": "./platforms/tailwind/preset.css",
+    "./tokens": "./platforms/json/tokens.json",
+    "./react": "./react/src/index.ts"
+  },
+  "scripts": {
+    "build:tokens": "node scripts/build-tokens.js",
+    "build": "npm run build:tokens",
+    "verify": "bash scripts/verify-consumers.sh"
+  }
+}

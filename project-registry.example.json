@@ -1,0 +1,27 @@
+{
+  "$schema": "Project registry — copy to project-registry.json and update paths for your machine",
+  "projects": [
+    {
+      "name": "my-app",
+      "path": "~/my-app",
+      "type": "web",
+      "stack": ["react", "next", "tailwind"],
+      "integration": ["css", "tailwind", "react"],
+      "status": "pending",
+      "notes": "Pilot project. Has existing ui/ components to replace."
+    },
+    {
+      "name": "my-static-site",
+      "path": "~/my-static-site",
+      "type": "web",
+      "stack": ["node", "vanilla-html"],
+      "integration": ["css"],
+      "status": "pending",
+      "notes": "CSS-only. Replace inline <style> :root block."
+    }
+  ],
+  "excluded": [
+    { "name": "portfolio", "reason": "Bespoke presentation design — would lose distinctiveness" },
+    { "name": "blog", "reason": "Hugo theme — defer unless theme replacement planned" }
+  ]
+}

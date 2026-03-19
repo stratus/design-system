@@ -1,0 +1,120 @@
+{
+  "md": {
+    "sys": {
+      "typescale": {
+        "display-large": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "3.5625rem" },
+          "line-height": { "value": "1.12" },
+          "weight": { "value": "400" },
+          "tracking": { "value": "-0.022em" }
+        },
+        "display-medium": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "2.8125rem" },
+          "line-height": { "value": "1.14" },
+          "weight": { "value": "400" },
+          "tracking": { "value": "-0.018em" }
+        },
+        "display-small": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "2.25rem" },
+          "line-height": { "value": "1.17" },
+          "weight": { "value": "400" },
+          "tracking": { "value": "-0.014em" }
+        },
+        "headline-large": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "2rem" },
+          "line-height": { "value": "1.2" },
+          "weight": { "value": "400" },
+          "tracking": { "value": "-0.012em" }
+        },
+        "headline-medium": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "1.75rem" },
+          "line-height": { "value": "1.22" },
+          "weight": { "value": "400" },
+          "tracking": { "value": "-0.010em" }
+        },
+        "headline-small": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "1.5rem" },
+          "line-height": { "value": "1.25" },
+          "weight": { "value": "400" },
+          "tracking": { "value": "-0.008em" }
+        },
+        "title-large": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "1.375rem" },
+          "line-height": { "value": "1.27" },
+          "weight": { "value": "600" },
+          "tracking": { "value": "-0.006em" }
+        },
+        "title-medium": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "1rem" },
+          "line-height": { "value": "1.4" },
+          "weight": { "value": "600" },
+          "tracking": { "value": "-0.004em" }
+        },
+        "title-small": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "0.875rem" },
+          "line-height": { "value": "1.43" },
+          "weight": { "value": "600" },
+          "tracking": { "value": "-0.002em" }
+        },
+        "body-large": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "1rem" },
+          "line-height": { "value": "1.5" },
+          "weight": { "value": "400" },
+          "tracking": { "value": "0em" }
+        },
+        "body-medium": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "0.875rem" },
+          "line-height": { "value": "1.5" },
+          "weight": { "value": "400" },
+          "tracking": { "value": "0em" }
+        },
+        "body-small": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "0.75rem" },
+          "line-height": { "value": "1.5" },
+          "weight": { "value": "400" },
+          "tracking": { "value": "0em" }
+        },
+        "label-large": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "0.875rem" },
+          "line-height": { "value": "1.43" },
+          "weight": { "value": "500" },
+          "tracking": { "value": "0.006em" }
+        },
+        "label-medium": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "0.75rem" },
+          "line-height": { "value": "1.33" },
+          "weight": { "value": "500" },
+          "tracking": { "value": "0.008em" }
+        },
+        "label-small": {
+          "font": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+          "size": { "value": "0.6875rem" },
+          "line-height": { "value": "1.45" },
+          "weight": { "value": "500" },
+          "tracking": { "value": "0.010em" }
+        }
+      }
+    },
+    "ref": {
+      "typeface": {
+        "brand": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+        "plain": { "value": "Inter, system-ui, -apple-system, sans-serif" },
+        "code": { "value": "JetBrains Mono, 'SF Mono', monospace" }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "md": {
+    "sys": {
+      "shape": {
+        "corner": {
+          "extra-small": { "value": "4px" },
+          "small": { "value": "6px" },
+          "medium": { "value": "8px" },
+          "large": { "value": "12px" },
+          "extra-large": { "value": "16px" },
+          "full": { "value": "9999px" }
+        }
+      }
+    }
+  }
+}

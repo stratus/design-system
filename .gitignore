@@ -1,0 +1,15 @@
+node_modules/
+dist/
+
+# Generated platform outputs (rebuild with `npm run build`)
+platforms/css/
+platforms/tailwind/
+platforms/json/
+platforms/swift/
+platforms/kotlin/
+
+# Local-only files (machine-specific paths)
+project-registry.json
+
+# OS files
+.DS_Store
