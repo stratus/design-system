@@ -2,6 +2,8 @@
 
 Cross-project design system inspired by Material Design 3's architecture with a Linear/Glean aesthetic (dark, muted, technical).
 
+![Component Showcase](docs/images/component-showcase-dark.png)
+
 ## Quick Start
 
 ```bash
@@ -65,6 +67,8 @@ Dark mode is the default. Opt in to light mode:
 Copy `project-registry.example.json` to `project-registry.json` and update paths for your machine. This file is gitignored (contains machine-specific paths).
 
 ## Tokens
+
+![Color Palette](docs/images/color-palette.png)
 
 | Token File | What It Controls |
 |-----------|-----------------|

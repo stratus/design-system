@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System — Component Showcase</title>
+  <link rel="stylesheet" href="../platforms/css/tokens.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--md-ref-typeface-brand);
+      background: var(--md-sys-color-background);
+      color: var(--md-sys-color-on-background);
+      padding: 48px;
+      min-width: 1200px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: var(--md-sys-typescale-display-small-size);
+      font-weight: 700;
+      letter-spacing: var(--md-sys-typescale-display-small-tracking);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: var(--md-sys-typescale-body-large-size);
+      color: var(--md-sys-color-on-surface-variant);
+      margin-bottom: 48px;
+    }
+
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      font-size: var(--md-sys-typescale-title-medium-size);
+      font-weight: var(--md-sys-typescale-title-medium-weight);
+      letter-spacing: var(--md-sys-typescale-label-medium-tracking);
+      color: var(--md-sys-color-on-surface-variant);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--md-sys-shape-corner-small);
+      font-size: var(--md-sys-typescale-body-medium-size);
+      font-weight: 500;
+      font-family: inherit;
+      height: 40px;
+      padding: 8px 16px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      text-decoration: none;
+    }
+    .btn-default {
+      background: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+    }
+    .btn-destructive {
+      background: var(--md-sys-color-error);
+      color: #ffffff;
+    }
+    .btn-outline {
+      background: var(--md-sys-color-background);
+      color: var(--md-sys-color-on-background);
+      border: 1px solid var(--md-sys-color-outline);
+    }
+    .btn-secondary {
+      background: var(--md-sys-color-surface-container);
+      color: var(--md-sys-color-on-background);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--md-sys-color-on-background);
+    }
+    .btn-link {
+      background: transparent;
+      color: var(--md-sys-color-primary);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 9999px;
+      padding: 2px 10px;
+      font-size: var(--md-sys-typescale-body-small-size);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .badge-default {
+      background: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
+      color: var(--md-sys-color-primary);
+      border: 1px solid color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent);
+    }
+    .badge-secondary {
+      background: var(--md-sys-color-surface-container);
+      color: var(--md-sys-color-on-surface-variant);
+      border: 1px solid transparent;
+    }
+    .badge-destructive {
+      background: color-mix(in srgb, var(--md-sys-color-error) 10%, transparent);
+      color: var(--md-sys-color-error);
+      border: 1px solid color-mix(in srgb, var(--md-sys-color-error) 20%, transparent);
+    }
+    .badge-success {
+      background: color-mix(in srgb, var(--md-sys-color-success) 10%, transparent);
+      color: var(--md-sys-color-success);
+      border: 1px solid color-mix(in srgb, var(--md-sys-color-success) 20%, transparent);
+    }
+    .badge-outline {
+      background: transparent;
+      color: var(--md-sys-color-on-background);
+      border: 1px solid var(--md-sys-color-outline);
+    }
+
+    /* ── Card ── */
+    .card {
+      border-radius: var(--md-sys-shape-corner-medium);
+      border: 1px solid var(--md-sys-color-outline);
+      background: var(--md-sys-color-surface-container);
+      color: var(--md-sys-color-on-background);
+      box-shadow: var(--md-sys-elevation-level1);
+    }
+    .card-header {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 24px;
+    }
+    .card-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .card-description {
+      font-size: var(--md-sys-typescale-body-medium-size);
+      color: var(--md-sys-color-on-surface-variant);
+    }
+    .card-content {
+      padding: 0 24px;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 24px;
+      padding-top: 0;
+    }
+
+    /* ── Input / Select / Textarea ── */
+    .form-group {
+      width: 100%;
+    }
+    .form-label {
+      display: block;
+      font-size: var(--md-sys-typescale-body-medium-size);
+      font-weight: 500;
+      color: var(--md-sys-color-on-background);
+      margin-bottom: 4px;
+    }
+    .input, .select, .textarea {
+      display: flex;
+      width: 100%;
+      border-radius: var(--md-sys-shape-corner-medium);
+      border: 1px solid var(--md-sys-color-outline);
+      background: var(--md-sys-color-background);
+      padding: 8px 12px;
+      font-size: var(--md-sys-typescale-body-medium-size);
+      color: var(--md-sys-color-on-background);
+      font-family: inherit;
+      outline: none;
+    }
+    .input { height: 40px; }
+    .select {
+      height: 40px;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+    .textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .input::placeholder, .textarea::placeholder {
+      color: var(--md-sys-color-on-surface-variant);
+    }
+    .input-error {
+      border-color: var(--md-sys-color-error);
+    }
+    .error-text {
+      font-size: var(--md-sys-typescale-body-small-size);
+      color: var(--md-sys-color-error);
+      margin-top: 4px;
+    }
+
+    /* ── Progress ── */
+    .progress-track {
+      height: 8px;
+      width: 100%;
+      background: var(--md-sys-color-surface-container);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 0.3s ease-in-out;
+    }
+    .progress-label {
+      font-size: var(--md-sys-typescale-body-small-size);
+      color: var(--md-sys-color-on-surface-variant);
+      margin-top: 4px;
+    }
+    .progress-row {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .progress-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .progress-item-label {
+      font-size: var(--md-sys-typescale-body-small-size);
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    /* ── Dialog (inline) ── */
+    .dialog-inline {
+      width: 100%;
+      max-width: 480px;
+      background: var(--md-sys-color-surface-container);
+      border: 1px solid var(--md-sys-color-outline);
+      border-radius: var(--md-sys-shape-corner-medium);
+      box-shadow: var(--md-sys-elevation-level3);
+      padding: 24px;
+    }
+    .dialog-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .dialog-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--md-sys-color-on-background);
+    }
+    .dialog-description {
+      font-size: var(--md-sys-typescale-body-medium-size);
+      color: var(--md-sys-color-on-surface-variant);
+      margin-top: 4px;
+    }
+    .dialog-close {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      color: var(--md-sys-color-on-surface-variant);
+      cursor: pointer;
+      border-radius: var(--md-sys-shape-corner-small);
+    }
+    .dialog-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    /* ── Tooltip (always visible) ── */
+    .tooltip-demo {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tooltip-bubble {
+      background: var(--md-sys-color-surface-container-high);
+      color: var(--md-sys-color-on-background);
+      font-size: var(--md-sys-typescale-body-small-size);
+      border-radius: var(--md-sys-shape-corner-medium);
+      padding: 8px 12px;
+      box-shadow: var(--md-sys-elevation-level3);
+      max-width: 260px;
+      line-height: 1.5;
+      margin-bottom: 8px;
+      white-space: nowrap;
+    }
+    .tooltip-arrow {
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid var(--md-sys-color-surface-container-high);
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Component Showcase</h1>
+  <p class="subtitle">Design system components — dark mode default</p>
+
+  <!-- Buttons -->
+  <div class="section">
+    <div class="section-title">Buttons</div>
+    <div class="row">
+      <button class="btn btn-default">Default</button>
+      <button class="btn btn-destructive">Destructive</button>
+      <button class="btn btn-outline">Outline</button>
+      <button class="btn btn-secondary">Secondary</button>
+      <button class="btn btn-ghost">Ghost</button>
+      <button class="btn btn-link">Link</button>
+    </div>
+  </div>
+
+  <!-- Badges -->
+  <div class="section">
+    <div class="section-title">Badges</div>
+    <div class="row">
+      <span class="badge badge-default">Default</span>
+      <span class="badge badge-secondary">Secondary</span>
+      <span class="badge badge-destructive">Destructive</span>
+      <span class="badge badge-success">Success</span>
+      <span class="badge badge-outline">Outline</span>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="section">
+    <div class="section-title">Card</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Project Settings</div>
+          <div class="card-description">Manage your project configuration and preferences.</div>
+        </div>
+        <div class="card-content">
+          <p style="font-size: var(--md-sys-typescale-body-medium-size); color: var(--md-sys-color-on-surface-variant);">
+            Configure build targets, environment variables, and deployment options for your project.
+          </p>
+        </div>
+        <div class="card-footer" style="margin-top: 16px;">
+          <button class="btn btn-default" style="height: 36px; font-size: 13px;">Save Changes</button>
+          <button class="btn btn-ghost" style="height: 36px; font-size: 13px;">Cancel</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Team Members</div>
+          <div class="card-description">Invite and manage your team.</div>
+        </div>
+        <div class="card-content">
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <div style="font-size: 14px; font-weight: 500;">Alice Chen</div>
+                <div style="font-size: 12px; color: var(--md-sys-color-on-surface-variant);">alice@example.com</div>
+              </div>
+              <span class="badge badge-default">Admin</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <div style="font-size: 14px; font-weight: 500;">Bob Smith</div>
+                <div style="font-size: 12px; color: var(--md-sys-color-on-surface-variant);">bob@example.com</div>
+              </div>
+              <span class="badge badge-secondary">Member</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Controls -->
+  <div class="section">
+    <div class="section-title">Form Controls</div>
+    <div class="grid-3">
+      <!-- Input -->
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="input" type="email" placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="input input-error" type="password" value="short">
+        <p class="error-text">Password must be at least 8 characters</p>
+      </div>
+      <!-- Select -->
+      <div class="form-group">
+        <label class="form-label">Role</label>
+        <select class="select">
+          <option>Admin</option>
+          <option>Editor</option>
+          <option>Viewer</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top: 24px; max-width: calc(66.666% - 8px);">
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="textarea" placeholder="Tell us about your project..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="section">
+    <div class="section-title">Progress</div>
+    <div class="grid-2">
+      <div class="progress-row">
+        <div class="progress-item">
+          <div class="progress-item-label">Default — 60%</div>
+          <div class="progress-track">
+            <div class="progress-bar" style="width: 60%; background: var(--md-sys-color-primary);"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-item-label">Default — 30%</div>
+          <div class="progress-track">
+            <div class="progress-bar" style="width: 30%; background: var(--md-sys-color-primary);"></div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-item">
+          <div class="progress-item-label">Auto color — 25% (success)</div>
+          <div class="progress-track">
+            <div class="progress-bar" style="width: 25%; background: var(--md-sys-color-success);"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-item-label">Auto color — 65% (warning)</div>
+          <div class="progress-track">
+            <div class="progress-bar" style="width: 65%; background: var(--warning);"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-item-label">Auto color — 90% (error)</div>
+          <div class="progress-track">
+            <div class="progress-bar" style="width: 90%; background: var(--md-sys-color-error);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dialog (inline) -->
+  <div class="section">
+    <div class="section-title">Dialog</div>
+    <div class="dialog-inline">
+      <div class="dialog-header">
+        <div>
+          <div class="dialog-title">Delete Project</div>
+          <div class="dialog-description">This action cannot be undone. All data will be permanently removed.</div>
+        </div>
+        <button class="dialog-close" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div style="margin-bottom: 16px;">
+        <label class="form-label">Type "delete" to confirm</label>
+        <input class="input" type="text" placeholder="delete">
+      </div>
+      <div class="dialog-footer">
+        <button class="btn btn-ghost" style="height: 36px; font-size: 13px;">Cancel</button>
+        <button class="btn btn-destructive" style="height: 36px; font-size: 13px;">Delete Project</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tooltip (always visible) -->
+  <div class="section">
+    <div class="section-title">Tooltip</div>
+    <div class="row" style="gap: 48px;">
+      <div class="tooltip-demo">
+        <div class="tooltip-bubble">This action is irreversible</div>
+        <div class="tooltip-arrow"></div>
+        <button class="btn btn-outline" style="height: 36px; font-size: 13px;">Hover me</button>
+      </div>
+      <div class="tooltip-demo">
+        <div class="tooltip-bubble">Keyboard shortcut: Ctrl+K</div>
+        <div class="tooltip-arrow"></div>
+        <button class="btn btn-secondary" style="height: 36px; font-size: 13px;">Search</button>
+      </div>
+      <div class="tooltip-demo">
+        <div class="tooltip-bubble">Copy to clipboard</div>
+        <div class="tooltip-arrow"></div>
+        <button class="btn btn-ghost" style="height: 36px; font-size: 13px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -13,5 +13,8 @@
     "build:tokens": "node scripts/build-tokens.js",
     "build": "npm run build:tokens",
     "verify": "bash scripts/verify-consumers.sh"
+  },
+  "devDependencies": {
+    "@playwright/mcp": "^0.0.68"
   }
 }
