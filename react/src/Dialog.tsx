@@ -19,7 +19,7 @@ export function Dialog({ open, onOpenChange, children }: DialogProps) {
         className="fixed inset-0 bg-black/50"
         onClick={() => onOpenChange(false)}
       />
-      <div className="relative z-50 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-surface-container border border-border rounded-md shadow-lg">
+      <div className="relative z-50 mx-4 w-full max-w-[calc(100vw-2rem)] sm:max-w-lg max-h-[90vh] overflow-y-auto bg-surface-container border border-border rounded-md shadow-lg">
         {children}
       </div>
     </div>
@@ -47,9 +47,9 @@ export function DialogHeader({ children, onClose }: DialogHeaderProps) {
       {onClose && (
         <Button
           variant="ghost"
-          size="sm"
+          size="icon"
           onClick={onClose}
-          className="h-8 w-8 p-0"
+          className="shrink-0"
           aria-label="Close dialog"
         >
           <svg

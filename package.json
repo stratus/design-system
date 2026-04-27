@@ -1,6 +1,6 @@
 {
   "name": "design-system",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -12,9 +12,13 @@
   "scripts": {
     "build:tokens": "node scripts/build-tokens.js",
     "build": "npm run build:tokens",
+    "test": "node --test tests/tokens.build.test.mjs tests/contrast.test.mjs",
+    "test:browser": "node tests/showcase.browser.mjs",
+    "screenshots": "node tests/showcase.browser.mjs --shoot",
     "verify": "bash scripts/verify-consumers.sh"
   },
   "devDependencies": {
-    "@playwright/mcp": "^0.0.68"
+    "@playwright/mcp": "^0.0.68",
+    "playwright": "^1.49.0"
   }
 }

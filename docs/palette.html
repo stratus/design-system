@@ -7,40 +7,44 @@
   <link rel="stylesheet" href="../platforms/css/tokens.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: var(--md-ref-typeface-brand);
+      font-size: var(--md-sys-legibility-body-size);
+      line-height: var(--md-sys-legibility-line-height);
+      letter-spacing: var(--md-sys-legibility-tracking);
       background: var(--md-sys-color-background);
       color: var(--md-sys-color-on-background);
-      padding: 48px;
-      min-width: 1200px;
+    }
+    .container {
       max-width: 1200px;
       margin: 0 auto;
+      padding: 24px 16px 64px;
     }
+    @media (min-width: 768px) { .container { padding: 48px; } }
 
     h1 {
       font-size: var(--md-sys-typescale-display-small-size);
-      font-weight: 700;
+      font-weight: var(--md-sys-legibility-heading-weight);
       letter-spacing: var(--md-sys-typescale-display-small-tracking);
       margin-bottom: 8px;
     }
+    @media (max-width: 480px) { h1 { font-size: 1.75rem; } }
 
     .subtitle {
-      font-size: var(--md-sys-typescale-body-large-size);
+      font-size: var(--md-sys-legibility-body-size);
       color: var(--md-sys-color-on-surface-variant);
-      margin-bottom: 48px;
+      margin-bottom: 32px;
     }
+    @media (min-width: 768px) { .subtitle { margin-bottom: 48px; } }
 
-    .section {
-      margin-bottom: 48px;
-    }
-
+    .section { margin-bottom: 40px; }
     .section-title {
       font-size: var(--md-sys-typescale-title-medium-size);
-      font-weight: var(--md-sys-typescale-title-medium-weight);
+      font-weight: var(--md-sys-legibility-heading-weight);
       letter-spacing: var(--md-sys-typescale-label-medium-tracking);
       color: var(--md-sys-color-on-surface-variant);
       text-transform: uppercase;
@@ -48,22 +52,20 @@
     }
 
     /* ── Tonal palette rows ── */
-    .palette-row {
-      margin-bottom: 24px;
-    }
+    .palette-row { margin-bottom: 24px; }
     .palette-label {
       font-size: var(--md-sys-typescale-label-large-size);
-      font-weight: var(--md-sys-typescale-label-large-weight);
+      font-weight: var(--md-sys-legibility-heading-weight);
       color: var(--md-sys-color-on-background);
       margin-bottom: 8px;
       text-transform: capitalize;
     }
     .palette-swatches {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(56px, 1fr));
       gap: 4px;
     }
     .swatch {
-      flex: 1;
       height: 72px;
       border-radius: var(--md-sys-shape-corner-small);
       display: flex;
@@ -74,32 +76,47 @@
       position: relative;
       min-width: 0;
     }
-    .swatch-shade {
-      font-size: 11px;
-      font-weight: 600;
-      font-family: var(--md-ref-typeface-code);
-      opacity: 0.9;
+    .swatch-shade { font-size: 11px; font-weight: 600; font-family: var(--md-ref-typeface-code); opacity: 0.9; }
+    .swatch-hex { font-size: 10px; font-family: var(--md-ref-typeface-code); opacity: 0.75; margin-top: 2px; }
+    .swatch.dark-text .swatch-shade,
+    .swatch.dark-text .swatch-hex { color: #0f172a; }
+    .swatch.light-text .swatch-shade,
+    .swatch.light-text .swatch-hex { color: #f8fafc; }
+
+    /* ── Theme comparison swatches ── */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
     }
-    .swatch-hex {
+    .theme-card {
+      border-radius: var(--md-sys-shape-corner-medium);
+      border: 1px solid var(--md-sys-color-outline);
+      overflow: hidden;
+    }
+    .theme-card-header {
+      padding: 12px 16px;
+      background: var(--md-sys-color-surface-container);
+      font-weight: var(--md-sys-legibility-heading-weight);
+      font-size: 0.875rem;
+    }
+    .theme-stripe {
+      display: flex;
+      height: 40px;
+    }
+    .theme-stripe > div {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 10px;
       font-family: var(--md-ref-typeface-code);
-      opacity: 0.7;
-      margin-top: 2px;
-    }
-    /* Light text for dark swatches, dark text for light swatches */
-    .swatch.dark-text .swatch-shade,
-    .swatch.dark-text .swatch-hex {
-      color: #0f172a;
-    }
-    .swatch.light-text .swatch-shade,
-    .swatch.light-text .swatch-hex {
-      color: #f8fafc;
     }
 
     /* ── Semantic roles ── */
     .roles-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 12px;
     }
     .role-card {
@@ -107,16 +124,14 @@
       border: 1px solid var(--md-sys-color-outline);
       overflow: hidden;
     }
-    .role-swatch {
-      height: 64px;
-    }
+    .role-swatch { height: 64px; }
     .role-info {
       padding: 8px 12px;
       background: var(--md-sys-color-surface-container);
     }
     .role-name {
       font-size: var(--md-sys-typescale-label-medium-size);
-      font-weight: var(--md-sys-typescale-label-medium-weight);
+      font-weight: var(--md-sys-legibility-heading-weight);
       color: var(--md-sys-color-on-background);
     }
     .role-var {
@@ -124,305 +139,176 @@
       font-family: var(--md-ref-typeface-code);
       color: var(--md-sys-color-on-surface-variant);
       margin-top: 2px;
+      word-break: break-all;
     }
   </style>
 </head>
 <body>
+  <div class="container">
 
-  <h1>Color Palette</h1>
-  <p class="subtitle">Tonal palettes and semantic color roles — dark mode default</p>
+    <h1>Color Palette</h1>
+    <p class="subtitle">Tonal palettes, theme comparison, and semantic color roles. Default theme: light + high-legibility.</p>
 
-  <!-- Tonal Palettes -->
-  <div class="section">
-    <div class="section-title">Tonal Palettes</div>
+    <!-- Theme comparison -->
+    <div class="section">
+      <div class="section-title">Theme Comparison — Background, Surface, Surface Container, Text, Primary</div>
+      <div class="theme-grid">
 
-    <!-- Primary -->
-    <div class="palette-row">
-      <div class="palette-label">Primary</div>
-      <div class="palette-swatches">
-        <div class="swatch light-text" style="background: #0c1929;">
-          <span class="swatch-shade">10</span>
-          <span class="swatch-hex">#0c1929</span>
+        <div class="theme-card">
+          <div class="theme-card-header">light + high-legibility (default)</div>
+          <div class="theme-stripe">
+            <div style="background:#f5f1e8;color:#1a1f2b">#f5f1e8</div>
+            <div style="background:#faf6ee;color:#1a1f2b">#faf6ee</div>
+            <div style="background:#ece5d4;color:#1a1f2b">#ece5d4</div>
+            <div style="background:#1a1f2b;color:#f5f1e8">#1a1f2b</div>
+            <div style="background:#1d4ed8;color:#fff">#1d4ed8</div>
+          </div>
         </div>
-        <div class="swatch light-text" style="background: #1e3a5f;">
-          <span class="swatch-shade">20</span>
-          <span class="swatch-hex">#1e3a5f</span>
+
+        <div class="theme-card">
+          <div class="theme-card-header">light + standard</div>
+          <div class="theme-stripe">
+            <div style="background:#f8fafc;color:#0f172a">#f8fafc</div>
+            <div style="background:#ffffff;color:#0f172a">#ffffff</div>
+            <div style="background:#f1f5f9;color:#0f172a">#f1f5f9</div>
+            <div style="background:#0f172a;color:#f8fafc">#0f172a</div>
+            <div style="background:#2563eb;color:#fff">#2563eb</div>
+          </div>
         </div>
-        <div class="swatch light-text" style="background: #1d4ed8;">
-          <span class="swatch-shade">30</span>
-          <span class="swatch-hex">#1d4ed8</span>
+
+        <div class="theme-card">
+          <div class="theme-card-header">dark + high-legibility</div>
+          <div class="theme-stripe">
+            <div style="background:#1a1d24;color:#e8e2d5">#1a1d24</div>
+            <div style="background:#22252e;color:#e8e2d5">#22252e</div>
+            <div style="background:#2c2f39;color:#e8e2d5">#2c2f39</div>
+            <div style="background:#e8e2d5;color:#1a1d24">#e8e2d5</div>
+            <div style="background:#7aaaff;color:#0a0f1f">#7aaaff</div>
+          </div>
         </div>
-        <div class="swatch light-text" style="background: #2563eb;">
-          <span class="swatch-shade">40</span>
-          <span class="swatch-hex">#2563eb</span>
+
+        <div class="theme-card">
+          <div class="theme-card-header">dark + standard</div>
+          <div class="theme-stripe">
+            <div style="background:#0a0a0f;color:#e2e8f0">#0a0a0f</div>
+            <div style="background:#12131a;color:#e2e8f0">#12131a</div>
+            <div style="background:#1a1b26;color:#e2e8f0">#1a1b26</div>
+            <div style="background:#e2e8f0;color:#0a0a0f">#e2e8f0</div>
+            <div style="background:#3b82f6;color:#fff">#3b82f6</div>
+          </div>
         </div>
-        <div class="swatch light-text" style="background: #3b82f6;">
-          <span class="swatch-shade">50</span>
-          <span class="swatch-hex">#3b82f6</span>
+
+      </div>
+    </div>
+
+    <!-- Tonal palettes -->
+    <div class="section">
+      <div class="section-title">Tonal Palettes</div>
+
+      <div class="palette-row">
+        <div class="palette-label">Primary</div>
+        <div class="palette-swatches">
+          <div class="swatch light-text" style="background: #0c1929;"><span class="swatch-shade">10</span><span class="swatch-hex">#0c1929</span></div>
+          <div class="swatch light-text" style="background: #1e3a5f;"><span class="swatch-shade">20</span><span class="swatch-hex">#1e3a5f</span></div>
+          <div class="swatch light-text" style="background: #1d4ed8;"><span class="swatch-shade">30</span><span class="swatch-hex">#1d4ed8</span></div>
+          <div class="swatch light-text" style="background: #2563eb;"><span class="swatch-shade">40</span><span class="swatch-hex">#2563eb</span></div>
+          <div class="swatch light-text" style="background: #3b82f6;"><span class="swatch-shade">50</span><span class="swatch-hex">#3b82f6</span></div>
+          <div class="swatch dark-text" style="background: #60a5fa;"><span class="swatch-shade">60</span><span class="swatch-hex">#60a5fa</span></div>
+          <div class="swatch dark-text" style="background: #93c5fd;"><span class="swatch-shade">70</span><span class="swatch-hex">#93c5fd</span></div>
+          <div class="swatch dark-text" style="background: #bfdbfe;"><span class="swatch-shade">80</span><span class="swatch-hex">#bfdbfe</span></div>
+          <div class="swatch dark-text" style="background: #dbeafe;"><span class="swatch-shade">90</span><span class="swatch-hex">#dbeafe</span></div>
+          <div class="swatch dark-text" style="background: #eff6ff;"><span class="swatch-shade">95</span><span class="swatch-hex">#eff6ff</span></div>
         </div>
-        <div class="swatch dark-text" style="background: #60a5fa;">
-          <span class="swatch-shade">60</span>
-          <span class="swatch-hex">#60a5fa</span>
+      </div>
+
+      <div class="palette-row">
+        <div class="palette-label">Error</div>
+        <div class="palette-swatches">
+          <div class="swatch light-text" style="background: #2d0a0a;"><span class="swatch-shade">10</span><span class="swatch-hex">#2d0a0a</span></div>
+          <div class="swatch light-text" style="background: #5f1e1e;"><span class="swatch-shade">20</span><span class="swatch-hex">#5f1e1e</span></div>
+          <div class="swatch light-text" style="background: #991b1b;"><span class="swatch-shade">30</span><span class="swatch-hex">#991b1b</span></div>
+          <div class="swatch light-text" style="background: #dc2626;"><span class="swatch-shade">40</span><span class="swatch-hex">#dc2626</span></div>
+          <div class="swatch light-text" style="background: #ef4444;"><span class="swatch-shade">50</span><span class="swatch-hex">#ef4444</span></div>
+          <div class="swatch dark-text" style="background: #f87171;"><span class="swatch-shade">60</span><span class="swatch-hex">#f87171</span></div>
+          <div class="swatch dark-text" style="background: #fca5a5;"><span class="swatch-shade">70</span><span class="swatch-hex">#fca5a5</span></div>
+          <div class="swatch dark-text" style="background: #fecaca;"><span class="swatch-shade">80</span><span class="swatch-hex">#fecaca</span></div>
+          <div class="swatch dark-text" style="background: #fee2e2;"><span class="swatch-shade">90</span><span class="swatch-hex">#fee2e2</span></div>
+          <div class="swatch dark-text" style="background: #fff5f5;"><span class="swatch-shade">95</span><span class="swatch-hex">#fff5f5</span></div>
         </div>
-        <div class="swatch dark-text" style="background: #93c5fd;">
-          <span class="swatch-shade">70</span>
-          <span class="swatch-hex">#93c5fd</span>
+      </div>
+
+      <div class="palette-row">
+        <div class="palette-label">Success</div>
+        <div class="palette-swatches">
+          <div class="swatch light-text" style="background: #052e16;"><span class="swatch-shade">10</span><span class="swatch-hex">#052e16</span></div>
+          <div class="swatch light-text" style="background: #1e5f2e;"><span class="swatch-shade">20</span><span class="swatch-hex">#1e5f2e</span></div>
+          <div class="swatch light-text" style="background: #166534;"><span class="swatch-shade">30</span><span class="swatch-hex">#166534</span></div>
+          <div class="swatch light-text" style="background: #16a34a;"><span class="swatch-shade">40</span><span class="swatch-hex">#16a34a</span></div>
+          <div class="swatch dark-text" style="background: #22c55e;"><span class="swatch-shade">50</span><span class="swatch-hex">#22c55e</span></div>
+          <div class="swatch dark-text" style="background: #4ade80;"><span class="swatch-shade">60</span><span class="swatch-hex">#4ade80</span></div>
+          <div class="swatch dark-text" style="background: #86efac;"><span class="swatch-shade">70</span><span class="swatch-hex">#86efac</span></div>
+          <div class="swatch dark-text" style="background: #bbf7d0;"><span class="swatch-shade">80</span><span class="swatch-hex">#bbf7d0</span></div>
+          <div class="swatch dark-text" style="background: #dcfce7;"><span class="swatch-shade">90</span><span class="swatch-hex">#dcfce7</span></div>
+          <div class="swatch dark-text" style="background: #f0fdf4;"><span class="swatch-shade">95</span><span class="swatch-hex">#f0fdf4</span></div>
         </div>
-        <div class="swatch dark-text" style="background: #bfdbfe;">
-          <span class="swatch-shade">80</span>
-          <span class="swatch-hex">#bfdbfe</span>
+      </div>
+
+      <div class="palette-row">
+        <div class="palette-label">Neutral (cool — used by standard themes)</div>
+        <div class="palette-swatches">
+          <div class="swatch light-text" style="background: #0a0a0f;"><span class="swatch-shade">10</span><span class="swatch-hex">#0a0a0f</span></div>
+          <div class="swatch light-text" style="background: #12131a;"><span class="swatch-shade">20</span><span class="swatch-hex">#12131a</span></div>
+          <div class="swatch light-text" style="background: #1a1b26;"><span class="swatch-shade">30</span><span class="swatch-hex">#1a1b26</span></div>
+          <div class="swatch light-text" style="background: #222338;"><span class="swatch-shade">40</span><span class="swatch-hex">#222338</span></div>
+          <div class="swatch light-text" style="background: #334155;"><span class="swatch-shade">50</span><span class="swatch-hex">#334155</span></div>
+          <div class="swatch light-text" style="background: #475569;"><span class="swatch-shade">60</span><span class="swatch-hex">#475569</span></div>
+          <div class="swatch dark-text" style="background: #64748b;"><span class="swatch-shade">70</span><span class="swatch-hex">#64748b</span></div>
+          <div class="swatch dark-text" style="background: #94a3b8;"><span class="swatch-shade">80</span><span class="swatch-hex">#94a3b8</span></div>
+          <div class="swatch dark-text" style="background: #cbd5e1;"><span class="swatch-shade">90</span><span class="swatch-hex">#cbd5e1</span></div>
+          <div class="swatch dark-text" style="background: #e2e8f0;"><span class="swatch-shade">95</span><span class="swatch-hex">#e2e8f0</span></div>
+          <div class="swatch dark-text" style="background: #f8fafc;"><span class="swatch-shade">99</span><span class="swatch-hex">#f8fafc</span></div>
+          <div class="swatch dark-text" style="background: #ffffff;"><span class="swatch-shade">100</span><span class="swatch-hex">#ffffff</span></div>
         </div>
-        <div class="swatch dark-text" style="background: #dbeafe;">
-          <span class="swatch-shade">90</span>
-          <span class="swatch-hex">#dbeafe</span>
-        </div>
-        <div class="swatch dark-text" style="background: #eff6ff;">
-          <span class="swatch-shade">95</span>
-          <span class="swatch-hex">#eff6ff</span>
+      </div>
+
+      <div class="palette-row">
+        <div class="palette-label">Warm Neutral (used by high-legibility themes)</div>
+        <div class="palette-swatches">
+          <div class="swatch light-text" style="background: #1a1d24;"><span class="swatch-shade">10</span><span class="swatch-hex">#1a1d24</span></div>
+          <div class="swatch light-text" style="background: #2c2f39;"><span class="swatch-shade">20</span><span class="swatch-hex">#2c2f39</span></div>
+          <div class="swatch light-text" style="background: #42454f;"><span class="swatch-shade">30</span><span class="swatch-hex">#42454f</span></div>
+          <div class="swatch light-text" style="background: #5a5d68;"><span class="swatch-shade">40</span><span class="swatch-hex">#5a5d68</span></div>
+          <div class="swatch light-text" style="background: #7a7d85;"><span class="swatch-shade">50</span><span class="swatch-hex">#7a7d85</span></div>
+          <div class="swatch dark-text" style="background: #9c9d9f;"><span class="swatch-shade">60</span><span class="swatch-hex">#9c9d9f</span></div>
+          <div class="swatch dark-text" style="background: #b8b2a5;"><span class="swatch-shade">70</span><span class="swatch-hex">#b8b2a5</span></div>
+          <div class="swatch dark-text" style="background: #c8bea6;"><span class="swatch-shade">80</span><span class="swatch-hex">#c8bea6</span></div>
+          <div class="swatch dark-text" style="background: #dfd6bf;"><span class="swatch-shade">90</span><span class="swatch-hex">#dfd6bf</span></div>
+          <div class="swatch dark-text" style="background: #ece5d4;"><span class="swatch-shade">95</span><span class="swatch-hex">#ece5d4</span></div>
+          <div class="swatch dark-text" style="background: #faf6ee;"><span class="swatch-shade">99</span><span class="swatch-hex">#faf6ee</span></div>
+          <div class="swatch dark-text" style="background: #f5f1e8;"><span class="swatch-shade">100</span><span class="swatch-hex">#f5f1e8</span></div>
         </div>
       </div>
     </div>
 
-    <!-- Error -->
-    <div class="palette-row">
-      <div class="palette-label">Error</div>
-      <div class="palette-swatches">
-        <div class="swatch light-text" style="background: #2d0a0a;">
-          <span class="swatch-shade">10</span>
-          <span class="swatch-hex">#2d0a0a</span>
-        </div>
-        <div class="swatch light-text" style="background: #5f1e1e;">
-          <span class="swatch-shade">20</span>
-          <span class="swatch-hex">#5f1e1e</span>
-        </div>
-        <div class="swatch light-text" style="background: #991b1b;">
-          <span class="swatch-shade">30</span>
-          <span class="swatch-hex">#991b1b</span>
-        </div>
-        <div class="swatch light-text" style="background: #dc2626;">
-          <span class="swatch-shade">40</span>
-          <span class="swatch-hex">#dc2626</span>
-        </div>
-        <div class="swatch light-text" style="background: #ef4444;">
-          <span class="swatch-shade">50</span>
-          <span class="swatch-hex">#ef4444</span>
-        </div>
-        <div class="swatch dark-text" style="background: #f87171;">
-          <span class="swatch-shade">60</span>
-          <span class="swatch-hex">#f87171</span>
-        </div>
-        <div class="swatch dark-text" style="background: #fca5a5;">
-          <span class="swatch-shade">70</span>
-          <span class="swatch-hex">#fca5a5</span>
-        </div>
-        <div class="swatch dark-text" style="background: #fecaca;">
-          <span class="swatch-shade">80</span>
-          <span class="swatch-hex">#fecaca</span>
-        </div>
-        <div class="swatch dark-text" style="background: #fee2e2;">
-          <span class="swatch-shade">90</span>
-          <span class="swatch-hex">#fee2e2</span>
-        </div>
-        <div class="swatch dark-text" style="background: #fff5f5;">
-          <span class="swatch-shade">95</span>
-          <span class="swatch-hex">#fff5f5</span>
-        </div>
+    <!-- Semantic roles (live, follow current theme) -->
+    <div class="section">
+      <div class="section-title">Semantic Color Roles (current theme)</div>
+      <div class="roles-grid">
+        <div class="role-card"><div class="role-swatch" style="background: var(--md-sys-color-background);"></div><div class="role-info"><div class="role-name">Background</div><div class="role-var">--md-sys-color-background</div></div></div>
+        <div class="role-card"><div class="role-swatch" style="background: var(--md-sys-color-surface);"></div><div class="role-info"><div class="role-name">Surface</div><div class="role-var">--md-sys-color-surface</div></div></div>
+        <div class="role-card"><div class="role-swatch" style="background: var(--md-sys-color-surface-container);"></div><div class="role-info"><div class="role-name">Surface Container</div><div class="role-var">--md-sys-color-surface-container</div></div></div>
+        <div class="role-card"><div class="role-swatch" style="background: var(--md-sys-color-primary);"></div><div class="role-info"><div class="role-name">Primary</div><div class="role-var">--md-sys-color-primary</div></div></div>
+        <div class="role-card"><div class="role-swatch" style="background: var(--md-sys-color-error);"></div><div class="role-info"><div class="role-name">Error</div><div class="role-var">--md-sys-color-error</div></div></div>
+        <div class="role-card"><div class="role-swatch" style="background: var(--md-sys-color-success);"></div><div class="role-info"><div class="role-name">Success</div><div class="role-var">--md-sys-color-success</div></div></div>
+        <div class="role-card"><div class="role-swatch" style="background: var(--md-sys-color-outline);"></div><div class="role-info"><div class="role-name">Border</div><div class="role-var">--md-sys-color-outline</div></div></div>
+        <div class="role-card"><div class="role-swatch" style="background: var(--md-sys-color-on-background);"></div><div class="role-info"><div class="role-name">Foreground</div><div class="role-var">--md-sys-color-on-background</div></div></div>
+        <div class="role-card"><div class="role-swatch" style="background: var(--md-sys-color-on-surface-variant);"></div><div class="role-info"><div class="role-name">Muted Foreground</div><div class="role-var">--md-sys-color-on-surface-variant</div></div></div>
+        <div class="role-card"><div class="role-swatch" style="background: var(--warning);"></div><div class="role-info"><div class="role-name">Warning</div><div class="role-var">--warning</div></div></div>
+        <div class="role-card"><div class="role-swatch" style="background: var(--md-sys-color-surface-container-high);"></div><div class="role-info"><div class="role-name">Surface High</div><div class="role-var">--md-sys-color-surface-container-high</div></div></div>
+        <div class="role-card"><div class="role-swatch" style="background: var(--md-sys-color-outline-variant);"></div><div class="role-info"><div class="role-name">Outline Variant</div><div class="role-var">--md-sys-color-outline-variant</div></div></div>
       </div>
     </div>
 
-    <!-- Success -->
-    <div class="palette-row">
-      <div class="palette-label">Success</div>
-      <div class="palette-swatches">
-        <div class="swatch light-text" style="background: #052e16;">
-          <span class="swatch-shade">10</span>
-          <span class="swatch-hex">#052e16</span>
-        </div>
-        <div class="swatch light-text" style="background: #1e5f2e;">
-          <span class="swatch-shade">20</span>
-          <span class="swatch-hex">#1e5f2e</span>
-        </div>
-        <div class="swatch light-text" style="background: #166534;">
-          <span class="swatch-shade">30</span>
-          <span class="swatch-hex">#166534</span>
-        </div>
-        <div class="swatch light-text" style="background: #16a34a;">
-          <span class="swatch-shade">40</span>
-          <span class="swatch-hex">#16a34a</span>
-        </div>
-        <div class="swatch dark-text" style="background: #22c55e;">
-          <span class="swatch-shade">50</span>
-          <span class="swatch-hex">#22c55e</span>
-        </div>
-        <div class="swatch dark-text" style="background: #4ade80;">
-          <span class="swatch-shade">60</span>
-          <span class="swatch-hex">#4ade80</span>
-        </div>
-        <div class="swatch dark-text" style="background: #86efac;">
-          <span class="swatch-shade">70</span>
-          <span class="swatch-hex">#86efac</span>
-        </div>
-        <div class="swatch dark-text" style="background: #bbf7d0;">
-          <span class="swatch-shade">80</span>
-          <span class="swatch-hex">#bbf7d0</span>
-        </div>
-        <div class="swatch dark-text" style="background: #dcfce7;">
-          <span class="swatch-shade">90</span>
-          <span class="swatch-hex">#dcfce7</span>
-        </div>
-        <div class="swatch dark-text" style="background: #f0fdf4;">
-          <span class="swatch-shade">95</span>
-          <span class="swatch-hex">#f0fdf4</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Neutral -->
-    <div class="palette-row">
-      <div class="palette-label">Neutral</div>
-      <div class="palette-swatches">
-        <div class="swatch light-text" style="background: #0a0a0f;">
-          <span class="swatch-shade">10</span>
-          <span class="swatch-hex">#0a0a0f</span>
-        </div>
-        <div class="swatch light-text" style="background: #12131a;">
-          <span class="swatch-shade">20</span>
-          <span class="swatch-hex">#12131a</span>
-        </div>
-        <div class="swatch light-text" style="background: #1a1b26;">
-          <span class="swatch-shade">30</span>
-          <span class="swatch-hex">#1a1b26</span>
-        </div>
-        <div class="swatch light-text" style="background: #222338;">
-          <span class="swatch-shade">40</span>
-          <span class="swatch-hex">#222338</span>
-        </div>
-        <div class="swatch light-text" style="background: #334155;">
-          <span class="swatch-shade">50</span>
-          <span class="swatch-hex">#334155</span>
-        </div>
-        <div class="swatch light-text" style="background: #475569;">
-          <span class="swatch-shade">60</span>
-          <span class="swatch-hex">#475569</span>
-        </div>
-        <div class="swatch dark-text" style="background: #64748b;">
-          <span class="swatch-shade">70</span>
-          <span class="swatch-hex">#64748b</span>
-        </div>
-        <div class="swatch dark-text" style="background: #94a3b8;">
-          <span class="swatch-shade">80</span>
-          <span class="swatch-hex">#94a3b8</span>
-        </div>
-        <div class="swatch dark-text" style="background: #cbd5e1;">
-          <span class="swatch-shade">90</span>
-          <span class="swatch-hex">#cbd5e1</span>
-        </div>
-        <div class="swatch dark-text" style="background: #e2e8f0;">
-          <span class="swatch-shade">95</span>
-          <span class="swatch-hex">#e2e8f0</span>
-        </div>
-        <div class="swatch dark-text" style="background: #f8fafc;">
-          <span class="swatch-shade">99</span>
-          <span class="swatch-hex">#f8fafc</span>
-        </div>
-        <div class="swatch dark-text" style="background: #ffffff;">
-          <span class="swatch-shade">100</span>
-          <span class="swatch-hex">#ffffff</span>
-        </div>
-      </div>
-    </div>
   </div>
-
-  <!-- Semantic Roles -->
-  <div class="section">
-    <div class="section-title">Semantic Color Roles</div>
-    <div class="roles-grid">
-      <div class="role-card">
-        <div class="role-swatch" style="background: var(--md-sys-color-background);"></div>
-        <div class="role-info">
-          <div class="role-name">Background</div>
-          <div class="role-var">--md-sys-color-background</div>
-        </div>
-      </div>
-      <div class="role-card">
-        <div class="role-swatch" style="background: var(--md-sys-color-surface);"></div>
-        <div class="role-info">
-          <div class="role-name">Surface</div>
-          <div class="role-var">--md-sys-color-surface</div>
-        </div>
-      </div>
-      <div class="role-card">
-        <div class="role-swatch" style="background: var(--md-sys-color-surface-container);"></div>
-        <div class="role-info">
-          <div class="role-name">Surface Container</div>
-          <div class="role-var">--md-sys-color-surface-container</div>
-        </div>
-      </div>
-      <div class="role-card">
-        <div class="role-swatch" style="background: var(--md-sys-color-primary);"></div>
-        <div class="role-info">
-          <div class="role-name">Primary</div>
-          <div class="role-var">--md-sys-color-primary</div>
-        </div>
-      </div>
-      <div class="role-card">
-        <div class="role-swatch" style="background: var(--md-sys-color-error);"></div>
-        <div class="role-info">
-          <div class="role-name">Error</div>
-          <div class="role-var">--md-sys-color-error</div>
-        </div>
-      </div>
-      <div class="role-card">
-        <div class="role-swatch" style="background: var(--md-sys-color-success);"></div>
-        <div class="role-info">
-          <div class="role-name">Success</div>
-          <div class="role-var">--md-sys-color-success</div>
-        </div>
-      </div>
-      <div class="role-card">
-        <div class="role-swatch" style="background: var(--md-sys-color-outline);"></div>
-        <div class="role-info">
-          <div class="role-name">Border</div>
-          <div class="role-var">--md-sys-color-outline</div>
-        </div>
-      </div>
-      <div class="role-card">
-        <div class="role-swatch" style="background: var(--md-sys-color-on-background);"></div>
-        <div class="role-info">
-          <div class="role-name">Foreground</div>
-          <div class="role-var">--md-sys-color-on-background</div>
-        </div>
-      </div>
-      <div class="role-card">
-        <div class="role-swatch" style="background: var(--md-sys-color-on-surface-variant);"></div>
-        <div class="role-info">
-          <div class="role-name">Muted Foreground</div>
-          <div class="role-var">--md-sys-color-on-surface-variant</div>
-        </div>
-      </div>
-      <div class="role-card">
-        <div class="role-swatch" style="background: var(--warning);"></div>
-        <div class="role-info">
-          <div class="role-name">Warning</div>
-          <div class="role-var">--warning</div>
-        </div>
-      </div>
-      <div class="role-card">
-        <div class="role-swatch" style="background: var(--md-sys-color-surface-container-high);"></div>
-        <div class="role-info">
-          <div class="role-name">Surface High</div>
-          <div class="role-var">--md-sys-color-surface-container-high</div>
-        </div>
-      </div>
-      <div class="role-card">
-        <div class="role-swatch" style="background: var(--md-sys-color-outline-variant);"></div>
-        <div class="role-info">
-          <div class="role-name">Outline Variant</div>
-          <div class="role-var">--md-sys-color-outline-variant</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </body>
 </html>

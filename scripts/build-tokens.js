@@ -7,7 +7,6 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 
-// Read token files
 function readTokens(file) {
   return JSON.parse(readFileSync(join(root, "tokens", file), "utf-8"));
 }
@@ -19,7 +18,6 @@ const shape = readTokens("shape.json");
 const spacing = readTokens("spacing.json");
 const motion = readTokens("motion.json");
 
-// Flatten nested token objects into [path, value] pairs
 function flatten(obj, prefix = "") {
   const result = [];
   for (const [key, val] of Object.entries(obj)) {
@@ -33,20 +31,28 @@ function flatten(obj, prefix = "") {
   return result;
 }
 
-// Extract color tokens
-const darkColors = flatten(color.md.sys.color.dark).map(([k, v]) => [`md-sys-color-${k}`, v]);
-const lightColors = flatten(color.md.sys.color.light).map(([k, v]) => [`md-sys-color-${k}`, v]);
-const refPalette = flatten(color.md.ref.palette).map(([k, v]) => [`md-ref-palette-${k}`, v]);
+const lightKc       = flatten(color.md.sys.color["light-kc"]).map(([k, v]) => [`md-sys-color-${k}`, v]);
+const lightStandard = flatten(color.md.sys.color["light-standard"]).map(([k, v]) => [`md-sys-color-${k}`, v]);
+const darkKc        = flatten(color.md.sys.color["dark-kc"]).map(([k, v]) => [`md-sys-color-${k}`, v]);
+const darkStandard  = flatten(color.md.sys.color["dark-standard"]).map(([k, v]) => [`md-sys-color-${k}`, v]);
+const refPalette    = flatten(color.md.ref.palette).map(([k, v]) => [`md-ref-palette-${k}`, v]);
 
-// Extract other tokens
-const typeTokens = flatten(typography.md.sys.typescale).map(([k, v]) => [`md-sys-typescale-${k}`, v]);
-const typeRef = flatten(typography.md.ref.typeface).map(([k, v]) => [`md-ref-typeface-${k}`, v]);
-const elevTokens = flatten(elevation.md.sys.elevation).map(([k, v]) => [`md-sys-elevation-${k}`, v]);
-const shapeTokens = flatten(shape.md.sys.shape).map(([k, v]) => [`md-sys-shape-${k}`, v]);
+const typeTokens   = flatten(typography.md.sys.typescale).map(([k, v]) => [`md-sys-typescale-${k}`, v]);
+const typeRef      = flatten(typography.md.ref.typeface).map(([k, v]) => [`md-ref-typeface-${k}`, v]);
+const legHigh      = flatten(typography.md.sys.legibility.high).map(([k, v]) => [`md-sys-legibility-${k}`, v]);
+const legStandard  = flatten(typography.md.sys.legibility.standard).map(([k, v]) => [`md-sys-legibility-${k}`, v]);
+
+const elevLight    = flatten(elevation.md.sys.elevation.light).map(([k, v]) => [`md-sys-elevation-${k}`, v]);
+const elevDark     = flatten(elevation.md.sys.elevation.dark).map(([k, v]) => [`md-sys-elevation-${k}`, v]);
+
+const shapeTokens   = flatten(shape.md.sys.shape).map(([k, v]) => [`md-sys-shape-${k}`, v]);
 const spacingTokens = flatten(spacing.md.sys.spacing).map(([k, v]) => [`md-sys-spacing-${k}`, v]);
-const motionTokens = flatten(motion.md.sys.motion).map(([k, v]) => [`md-sys-motion-${k}`, v]);
+const motionTokens  = [
+  ...flatten(motion.md.sys.motion.duration).map(([k, v]) => [`md-sys-motion-duration-${k}`, v]),
+  ...flatten(motion.md.sys.motion.easing).map(([k, v]) => [`md-sys-motion-easing-${k}`, v]),
+];
+const motionLegibility = flatten(motion.md.sys.motion.legibility).map(([k, v]) => [`md-sys-motion-legibility-${k}`, v]);
 
-// Backward-compatible aliases
 const aliases = [
   ["primary", "var(--md-sys-color-primary)"],
   ["primary-foreground", "var(--md-sys-color-on-primary)"],
@@ -72,33 +78,40 @@ const aliases = [
   ["destructive", "var(--md-sys-color-error)"],
   ["success", "var(--md-sys-color-success)"],
   ["green", "var(--md-sys-color-success)"],
-  ["warning", "#f59e0b"],
+  ["warning", "#b45309"],
   ["foreground-muted", "var(--md-sys-color-on-surface-variant)"],
 ];
 
-function toCSS(pairs) {
-  return pairs.map(([k, v]) => `  --${k}: ${v};`).join("\n");
+function toCSS(pairs, indent = "  ") {
+  return pairs.map(([k, v]) => `${indent}--${k}: ${v};`).join("\n");
 }
 
-// ── Build CSS ──
 const css = `/* Design System Tokens — Auto-generated, do not edit */
+/* Defaults: light mode + high-legibility (designed for keratoconus and other low-vision needs) */
+/* Opt-out classes (compose freely):
+   .dark or [data-theme="dark"]              → dark color theme
+   .standard-legibility or [data-a11y="standard"]  → drop high-legibility lifts
+*/
 
-/* Dark mode (default) */
+/* ── Default: light + high-legibility ── */
 :root {
-${toCSS(darkColors)}
+${toCSS(lightKc)}
 
-  /* Backward-compatible aliases */
+  /* Backward-compatible aliases (resolve via --md-sys-* — pick up theme automatically) */
 ${toCSS(aliases)}
 
   /* Reference palette */
 ${toCSS(refPalette)}
 
-  /* Typography */
+  /* Typography ref + scale */
 ${toCSS(typeRef)}
 ${toCSS(typeTokens)}
 
-  /* Elevation */
-${toCSS(elevTokens)}
+  /* Legibility tokens (high-legibility values active) */
+${toCSS(legHigh)}
+
+  /* Elevation (light shadows for warm bg) */
+${toCSS(elevLight)}
 
   /* Shape */
 ${toCSS(shapeTokens)}
@@ -108,17 +121,57 @@ ${toCSS(spacingTokens)}
 
   /* Motion */
 ${toCSS(motionTokens)}
+${toCSS(motionLegibility)}
 }
 
-/* Light mode (opt-in) */
-:root.light, [data-theme="light"] {
-${toCSS(lightColors)}
+/* ── Dark color theme (high-legibility stays on) ── */
+:root.dark, [data-theme="dark"] {
+${toCSS(darkKc)}
 
   --primary-hover: color-mix(in srgb, var(--md-sys-color-primary) 90%, white);
+
+  /* Elevation (heavier shadows for dark bg) */
+${toCSS(elevDark)}
+}
+
+/* ── Standard legibility (no KC lifts) — light variant ── */
+:root.standard-legibility, [data-a11y="standard"] {
+${toCSS(lightStandard)}
+
+  /* Revert legibility tokens to standard */
+${toCSS(legStandard)}
+}
+
+/* ── Standard legibility + dark color (restores pre-refresh look) ── */
+:root.dark.standard-legibility,
+[data-theme="dark"][data-a11y="standard"] {
+${toCSS(darkStandard)}
+
+  --primary-hover: color-mix(in srgb, var(--md-sys-color-primary) 90%, white);
+
+${toCSS(elevDark)}
+}
+
+/* ── Reduced motion (defense in depth, independent of legibility class) ── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --md-sys-motion-duration-short1: 0ms;
+    --md-sys-motion-duration-short2: 0ms;
+    --md-sys-motion-duration-short3: 0ms;
+    --md-sys-motion-duration-short4: 0ms;
+    --md-sys-motion-duration-medium1: 0ms;
+    --md-sys-motion-duration-medium2: 0ms;
+    --md-sys-motion-duration-medium3: 0ms;
+    --md-sys-motion-duration-medium4: 0ms;
+    --md-sys-motion-duration-long1: 0ms;
+    --md-sys-motion-duration-long2: 0ms;
+    --md-sys-motion-duration-long3: 0ms;
+    --md-sys-motion-duration-long4: 0ms;
+    --md-sys-motion-legibility-duration-cap: 0ms;
+  }
 }
 `;
 
-// ── Build Tailwind v4 preset ──
 const tailwind = `/* Design System — Tailwind v4 Preset */
 /* Auto-generated, do not edit */
 
@@ -142,7 +195,7 @@ const tailwind = `/* Design System — Tailwind v4 Preset */
   --color-error-foreground: var(--md-sys-color-on-error);
   --color-success: var(--md-sys-color-success);
   --color-success-foreground: var(--md-sys-color-on-success);
-  --color-warning: #f59e0b;
+  --color-warning: #b45309;
   --color-card: var(--md-sys-color-surface-container);
   --color-card-foreground: var(--md-sys-color-on-background);
 
@@ -176,17 +229,31 @@ const tailwind = `/* Design System — Tailwind v4 Preset */
 }
 `;
 
-// ── Build flat JSON ──
-const allTokens = {};
-[...darkColors, ...refPalette, ...typeRef, ...typeTokens, ...elevTokens, ...shapeTokens, ...spacingTokens, ...motionTokens].forEach(([k, v]) => {
-  allTokens[k] = v;
-});
-// Also add light as a nested object
-const lightObj = {};
-lightColors.forEach(([k, v]) => { lightObj[k] = v; });
-allTokens["_light"] = lightObj;
+const allTokens = {
+  themes: {
+    "light-kc":       Object.fromEntries(lightKc),
+    "light-standard": Object.fromEntries(lightStandard),
+    "dark-kc":        Object.fromEntries(darkKc),
+    "dark-standard":  Object.fromEntries(darkStandard),
+  },
+  legibility: {
+    high:     Object.fromEntries(legHigh),
+    standard: Object.fromEntries(legStandard),
+  },
+  elevation: {
+    light: Object.fromEntries(elevLight),
+    dark:  Object.fromEntries(elevDark),
+  },
+  ref: {
+    palette:  Object.fromEntries(refPalette),
+    typeface: Object.fromEntries(typeRef),
+  },
+  typescale: Object.fromEntries(typeTokens),
+  shape:     Object.fromEntries(shapeTokens),
+  spacing:   Object.fromEntries(spacingTokens),
+  motion:    Object.fromEntries([...motionTokens, ...motionLegibility]),
+};
 
-// Ensure output directories exist
 mkdirSync(join(root, "platforms/css"), { recursive: true });
 mkdirSync(join(root, "platforms/tailwind"), { recursive: true });
 mkdirSync(join(root, "platforms/json"), { recursive: true });
